@@ -3,4 +3,5 @@
   flex-direction: column;
   justify-content: space-between;
   padding: 34px 160px;
+  min-height: 100vh;
 }
