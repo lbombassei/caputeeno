@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { ArrowDownIcon } from "./icons/arrow-down"
+import { ArrowDownIcon } from "../icons/arrow-down"
 import { useState } from "react"
 import { useFilter } from "@/hooks/useFilter"
 import { PriorityEnum } from "@/enum/priority-enum"

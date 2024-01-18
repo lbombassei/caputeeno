@@ -1,7 +1,7 @@
 "use client"
-import { FilterBar } from "@/components/filter-bar";
+import { FilterBar } from "@/components/filters/filter-bar";
 import main from './page.module.css';
-import { ProductList } from "@/components/products-list";
+import { ProductList } from "@/components/products/products-list";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 
