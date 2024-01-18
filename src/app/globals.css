@@ -5,6 +5,10 @@
   --text-dark: #737380;
   --delete-color: #DE3838;
   --orange-low: #FFA585;
+  --text-dark-2: #41414d;
+  --shapes-dark: #09090a;
+  --shapes: #dce2e6;
+  --bg-primary: #f0f0f5;
 }
 * {
   box-sizing: border-box;
