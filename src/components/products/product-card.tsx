@@ -16,11 +16,6 @@ const Card = styled.div`
     border-radius: 0px 0px 4px 4px;
     backdrop-filter: blur(10px);
     background-color: rgba(255,255,255,0.4);
-    
-    img {
-        width: 256px;
-        height: 300px;
-    }
 
     h3{
         font-weight: 300;
@@ -53,18 +48,27 @@ const Card = styled.div`
 
 `
 
-export function ProductCard(props: ProductCardProps) {
-    const price = formatPrice(props.price);
+const ProductImage = styled(Image)`
+  border-radius: 4px 4px 0 0;
+`;
 
-    return (
-        <Card>
-            <img src={props.image} />
-            <div>
-                <h3>{props.title}</h3>
-                <div></div>
-                <p>{price}</p>
-            </div>
-            
-        </Card>
-    )
+export function ProductCard(props: ProductCardProps) {
+  const price = formatPrice(props.price);
+
+  return (
+    <Card>
+      <ProductImage
+        src={props.image}
+        alt={props.title}
+        width={256}
+        height={300}
+        layout="responsive"
+      />
+      <div>
+        <h3>{props.title}</h3>
+        <div></div>
+        <p>{price}</p>
+      </div>
+    </Card>
+  );
 }
