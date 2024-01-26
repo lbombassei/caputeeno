@@ -15,6 +15,8 @@ const GridContainer = styled.div`
 
 export function ProductList() {
     const { data } = useProducts();
+
+
     return (
         <GridContainer>
             {data?.map((product: any) =>
@@ -22,8 +24,7 @@ export function ProductList() {
                     key={product.id}
                     title={product.name}
                     price={product.price_in_cents}
-                    image={product.image_url}
-                />
+                    image={product.image_url} id={product.id}                />
             )}
         </GridContainer>
     )

@@ -9,6 +9,6 @@ interface Data {
   allProducts: Product[];
 }
 
-interface ProductsFetchResponse {
+export interface ProductsFetchResponse {
   data: Data;
 }

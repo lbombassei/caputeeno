@@ -1,30 +1,30 @@
-"use client"
+import { ProductsFetchResponse } from "../types/products-response";
 import { useQuery } from "@tanstack/react-query";
 import axios, { AxiosPromise } from "axios";
 import { useFilter } from "./useFilter";
-import { buildQuery} from "@/utils/graphQl-filters";
+import {  mountQuery } from "@/utils/graphQl-filters";
 import { useDeferredValue } from "react";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL as string
+const API_URL = process.env.NEXT_PUBLIC_API_URL as string;
 
 const fetcher = (query: string): AxiosPromise<ProductsFetchResponse> => {
-    return axios.post(
-        API_URL, { query: query})
+  return axios.post(API_URL,{ query })
 }
 
-    
-
-export function useProducts() {
-
-    const { type, priority, search } = useFilter();
-    const searchDeferred= useDeferredValue(search);
-    const query = buildQuery(type, priority);
+export function useProducts(){
+    const { type, priority, search } = useFilter()
+    const searchDeferred = useDeferredValue(search)
+    const query = mountQuery(type, priority)
     const { data } = useQuery({
-        queryKey: ['Products', type, priority, searchDeferred],
-        queryFn: () => fetcher(query ),
+      queryFn: () => fetcher(query),
+      queryKey: ['products', type, priority],
+      staleTime: 1000 * 60 * 1
     })
-    const products = data?.data?.data?.allProducts
+
+    const products =  data?.data?.data?.allProducts
     const filteredProducts = products?.filter(product => product.name.toLowerCase().includes(searchDeferred.toLowerCase()))
-    return { data: filteredProducts }
-    
+
+    return {
+      data: filteredProducts
+    }
 }

@@ -8,42 +8,39 @@ export function getCategoryByType(type: FilterType) {
 }
 
 export function getFieldByPriority(priority: PriorityEnum) {
-  if (priority === PriorityEnum.BIGGEST_PRICE)
-    return { field: "price_in_cents", order: "DSC" };
-  if (priority === PriorityEnum.MINOR_PRICE)
-    return { field: "price_in_cents", order: "ASC" };
   if (priority === PriorityEnum.NEWS)
     return { field: "created_at", order: "ASC" };
+  if (priority === PriorityEnum.BIGGEST_PRICE)
+    return { field: "price_in_cents", order: "ASC" };
+  if (priority === PriorityEnum.MINOR_PRICE)
+    return { field: "price_in_cents", order: "ASC" };
   return { field: "sales", order: "DSC" };
 }
 
-export function buildQuery(type: FilterType, priority: PriorityEnum) {
-  if (type === FilterType.ALL && priority == PriorityEnum.POPULARITY)
-    return `
-  query {
-      allProducts(sortField: "sales", sortOrder: "DSC"){
+export const mountQuery = (type: FilterType, priority: PriorityEnum) => {
+  if (type === FilterType.ALL && priority === PriorityEnum.POPULARITY)
+    return `query {
+        allProducts(sortField: "sales", sortOrder: "DSC") {
           id
           name
           price_in_cents
           image_url
+        }
       }
-  }
-`;
+    `;
   const sortSettings = getFieldByPriority(priority);
   const categoryFilter = getCategoryByType(type);
-
   return `
-query {
-  allProducts(
-    sortField: "${sortSettings.field}"
-    sortOrder: "${sortSettings.order}"
-    ${categoryFilter ? `filter: { category: "${categoryFilter}" }` : ""}
-  ) {
-    id
-    name
-    price_in_cents
-    image_url
-  }
-}
-`;
-}
+    query {
+        allProducts(sortField: "${sortSettings.field}", sortOrder: "${
+    sortSettings.order
+  }", ${categoryFilter ? `filter: { category: "${categoryFilter}"}` : ""}) {
+          id
+          name
+          price_in_cents
+          image_url
+          category
+        }
+      }
+    `;
+};
