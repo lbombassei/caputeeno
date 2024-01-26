@@ -7,6 +7,7 @@ import { useProduct } from "@/hooks/useProduct";
 import { Product } from "@/types/product";
 import { formatPrice } from "@/utils/format-price";
 import { styled } from "styled-components"
+import Image from "next/image"
 
 interface ProductProps {
 
@@ -106,7 +107,9 @@ const ProductInfo = styled.div`
         }
     }
 `
-
+const ProductImage = styled(Image)`
+  border-radius: 4px 4px 0 0;
+`;
 export default function Product({ searchParams }: { searchParams: { id: string }}) {
     const { data } = useProduct(searchParams.id);
     
@@ -135,7 +138,7 @@ export default function Product({ searchParams }: { searchParams: { id: string }
             <Container>
                 <BackBtn navigate="/"/>
                 <section>
-                    <img src={data?.image_url}/>
+                  <ProductImage src={data?.image_url || ''} width={640} height={580} alt="Foto Produto" />
                     <div>
                         <ProductInfo>
                             <span>{data?.category}</span>
